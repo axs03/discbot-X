@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/axs03/x-discord-bot/issues"
   },
-  "homepage": "https://github.com/axs03/x-discord-bot#readme"
+  "homepage": "https://github.com/axs03/x-discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.17.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0"
+  }
 }
