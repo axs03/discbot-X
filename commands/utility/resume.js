@@ -1,9 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js")
 
 module.exports = {
-    data:
-    new SlashCommandBuilder()
-    .setName("play")
+    data: new SlashCommandBuilder()
+    .setName("r")
     .setDescription("Will resume currently playing music"),
 
     async execute(interaction) {

@@ -7,7 +7,7 @@ module.exports = {
     // this data basically a constructor, or the info about the slash command
     data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("Test Slash Command"),
+    .setDescription("Returns pong"),
 
     // this async function is the executing part of the function, this is where you will write the actual code for the slash command
     async execute(interaction) {
