@@ -1,12 +1,12 @@
 // Require the necessary discord.js classes
-const fs = require("node:fs"); // i think this relates to the file system
+const fs = require("node:fs"); // relates to the file system
 const path = require("node:path");
 
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const { token } = require('./config.json');
 
 
-// a "guild" is jsut another name for a discord server.
+// "guild" is jsut another name for a discord server.
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -34,21 +34,23 @@ for (const folder of commandFolders) {
 
 // When the client is ready, run this code (only once).
 // It makes some properties non-nullable.
+// this is the init of the bot
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 // this is the interaction listener
 client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+	if (!interaction.isChatInputCommand()) return; // none
 
-	const command = interaction.client.commands.get(interaction.commandName);
+	const command = interaction.client.commands.get(interaction.commandName); // gets the command
 
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 
+	// error handler for command
 	try {
 		await command.execute(interaction);
 	} catch (error) {
@@ -60,7 +62,6 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 	}
 });
-
 
 
 // login and start the bot

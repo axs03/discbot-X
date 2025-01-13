@@ -5,14 +5,20 @@ let day = date.getDate();
 let month = date.getMonth();
 let year = date.getFullYear();
 
-let currentDate = `${day}-${month}-${year}`;
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+let day_string = days[date.getDay()];
+let month_string = months[date.getMonth()];
+
+let currentDate = `${day_string} ${month_string}, ${year}`;
 
 
 module.exports = {
-    data: // the constructor
+    data:
     new SlashCommandBuilder()
     .setName("date")
-    .setDescription("This will return the current date"),
+    .setDescription("Gives the current date"),
 
     async execute(interaction) {
         await interaction.reply(`The current date is ${currentDate}`);
