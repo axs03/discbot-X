@@ -21,5 +21,3 @@ node index.js
 | <code>/q</code> | Queue Command | **Not Implemented** <br> Will queue a song for playing next | 
 | <code>/r</code> | Resume Command | **Not Implemented** <br> Will resume the song if paused |
 | <code>/s</code> | Stop Command | **Not Implemented** <br> Will stop the bot playing music |
-
-
