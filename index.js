@@ -39,7 +39,7 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-// this is the interaction listener
+// this is the interaction listener for executing a command
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return; // none
 
