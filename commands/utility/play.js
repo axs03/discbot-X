@@ -12,9 +12,9 @@ module.exports = {
     ),
 
     async execute(interaction) {
-        const member_voice_channel = interaction.member?.voice?.channel;
-        const member = interaction.member;
-        const voice = interaction.voice;
+        let member_voice_channel = interaction.member?.voice?.channel;
+        let member = interaction.member;
+        let voice = interaction.voice;
 
         // user not in voice channel
         if (!member_voice_channel) {
