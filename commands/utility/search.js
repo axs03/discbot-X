@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js")
-const { execute } = require("./play")
-const { searchAPI, searchEngine } = require("../../config.json")
-
+const { searchGoogle } = require("../helpers/google.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,26 +22,29 @@ module.exports = {
 
         // the search term is present
         try {
-            let url = `https://www.googleapis.com/customsearch/v1?key=${searchAPI}&cx=${searchEngine}&q=${encodeURIComponent(keyword)}`; 
+            const response = await searchGoogle(keyword);
+            let botResponse = ``;
+            if (response.items && response.items.length > 0) {
+                // displaying only the first item in the response
+                // const firstResult = response.items[0];
+                // await interaction.reply(`**${firstResult.title}**\n${firstResult.snippet}\n${firstResult.link}`);
 
-            fetch(url) 
-            .then(response => { 
-                if (!response.ok) { 
-                    throw new Error('Network response was not ok ' + response.statusText); 
-                } 
-                return response.json(); 
-            }) 
-            .then(data => { 
-                interaction.reply(data);
-            }) 
-            .catch(error => { 
-                interaction.reply('There was a problem with the fetch operation:', error); 
-            });
+                // displaying top 5 items in the search result
+                for (let i = 0; i < 6; i++) {
+                    const result = response.items[i];
+                    botResponse += `**${result.title}**\n${result.snippet}\n${result.link}\n\n`;
+                }
+
+                await interaction.reply(botResponse); // final response body
+
+            } else {
+                await interaction.reply('No results found.');
+            }
         } catch (error) {
-            await interaction.reply(`An error occurred when searching: ${error}`)
+            console.log(error);
+            await interaction.reply(`An error occurred with the search function: ${error.message}`);
         }
     }
-
 }
 
 
