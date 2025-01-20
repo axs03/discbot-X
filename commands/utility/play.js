@@ -1,4 +1,4 @@
-const {SlashCommandBuilder} = require("discord.js")
+const { SlashCommandBuilder } = require("discord.js")
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require("@discordjs/voice");
 
 module.exports = {
@@ -12,13 +12,13 @@ module.exports = {
     ),
 
     async execute(interaction) {
-        let member_voice_channel = interaction.member?.voice?.channel;
+        let member_voice_channel = interaction.member.voice.channel;
         let member = interaction.member;
         let voice = interaction.voice;
 
         // user not in voice channel
         if (!member_voice_channel) {
-            await interaction.reply("Please join a voice channel first");
+            await interaction.reply("Please join a voice channel first\n User current channel: " + member_voice_channel);
             return;
         }
 
@@ -37,7 +37,7 @@ module.exports = {
 
             // placeholder for the actual audio player
             await interaction.reply(`Member: ${member} \n
-                Channel: ${voice} \n
+                Channel: ${member_voice_channel} \n
                 Now playing: ${url}`);
 
 

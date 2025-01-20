@@ -46,11 +46,3 @@ module.exports = {
         }
     }
 }
-
-
-
-
-
-{/* <script async src="https://cse.google.com/cse.js?cx=829c991025815404a">
-</script>
-<div class="gcse-search"></div> */}

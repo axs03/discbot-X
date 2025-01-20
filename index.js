@@ -8,7 +8,7 @@ const { token } = require('./config.json');
 
 // "guild" is jsut another name for a discord server.
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
 client.commands = new Collection();
 
