@@ -6,13 +6,12 @@ const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const { token } = require('./config.json');
 
 
-// "guild" is jsut another name for a discord server.
-// Create a new client instance
+// Create a new client instance, manage permissions here as well
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
 client.commands = new Collection();
 
-// stuff for dynamically getting the command files
+// dynamically getting the command files
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
@@ -39,7 +38,7 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-// this is the interaction listener for executing a command
+// interaction listener for executing a command
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return; // none
 

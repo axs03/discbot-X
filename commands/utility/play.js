@@ -1,20 +1,24 @@
 const { SlashCommandBuilder } = require("discord.js")
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require("@discordjs/voice");
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require("@discordjs/voice")
+// const { QueryType } = require("discord-player")
 
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("p")
     .setDescription("Will play music from a link")
-    .addStringOption(option =>
-        option.setName("url")
-        .setDescription("URL of the audio")
-        .setRequired(true)
+    .addSubcommand(subcommand =>
+        subcommand.setName("song")
+        .setDescription("Use URL of a song")
+        .addStringOption((option) => option.setName("url").setDescription("URL for song").setRequired(true))
+    )
+    .addSubcommand(subcommand =>
+        subcommand.setName("playlist")
+        .setDescription("Use Playlist URL of Songs")
+        .addStringOption((option) => option.setName("url").setDescription("URL for playlist").setRequired(true))
     ),
 
     async execute(interaction) {
         let member_voice_channel = interaction.member.voice.channel;
-        let member = interaction.member;
-        let voice = interaction.voice;
 
         // user not in voice channel
         if (!member_voice_channel) {
@@ -22,7 +26,6 @@ module.exports = {
             return;
         }
 
-        // else, we want to join the voice channel
         try {
             // connection for the bot to join
             const connection = joinVoiceChannel({
@@ -32,17 +35,22 @@ module.exports = {
                 selfDeaf: true,
             });
 
-            // url variable grabbed from the user
-            const url = interaction.options.getString("url");
-
-            // placeholder for the actual audio player
-            await interaction.reply(`Member: ${member} \n
-                Channel: ${member_voice_channel} \n
-                Now playing: ${url}`);
-
+            // if subcommand is song, otherwise it is playlist
+            if (interaction.options.getSubcommand() == "song") {
+                let url = interaction.options.getString("url");
+                
+                // audio player and play the resource
+                const player = createAudioPlayer();
+                const resource = createAudioResource(url, { inputType: StreamType.Arbitrary });
+                player.play(resource);
+                connection.subscribe(player);
+            }
 
         } catch (error) {
             await interaction.reply(`An error occurred:\n ${error}`);
+            return;
         }
+
+        
     }
 };
