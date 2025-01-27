@@ -40,7 +40,7 @@ Now, we need to setup a <code>config.json</code> file for the bot to function wi
 
 | ID | Description       | Link                                                                 |
 |---------|--------------|----------------------------------------------------------------------|
-| <code>token</code><br><code>clientId</code><br><code>guildId</code> | Grabbed from the discord developer panel | |
+| <code>token</code><br><code>clientId</code><br><code>guildId</code> | Grabbed from the discord developer portal appliactions panel | <a href='https://discord.com/developers/applications'>Discord Developer Portal - Applications</a>|
 | <code>searchAPI</code><br><code>searchEngine</code> | Grabbed from Google Cloud Console | <a href='https://developers.google.com/custom-search/v1/introduction'>Programmable Search Engine</a> |
 
 Once you have all the neccesary secrets, you can now run the bot by following the next section!
@@ -64,8 +64,8 @@ node index.js
 | <code>/ping</code> | Test Command | Returns response <code>pong</code> |
 | <code>/search</code> | Search Command | Returns top 5 search results for your query |
 | <code>/date</code> | Date Command | Returns current date in format <br> <code> **Sunday** the **12th**, <br>January 2025</code> |
-| <code>/p</code> | Play Command | **Not Implemented** <br> Will play a song |
+| <code>/p</code> | Play Command | **Not Functional** <br> Will play a song |
 | <code>/pause</code> | Pause Command | **Not Implemented** <br> Will pause the current playing song |
 | <code>/q</code> | Queue Command | **Not Implemented** <br> Will queue a song for playing next | 
 | <code>/r</code> | Resume Command | **Not Implemented** <br> Will resume the song if paused |
-| <code>/s</code> | Stop Command | **Not Implemented** <br> Will stop the bot playing music |
+| <code>/s</code> | Stop Command | Will stop the bot playing music |
