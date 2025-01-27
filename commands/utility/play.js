@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require("discord.js")
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require("@discordjs/voice")
-// const { QueryType } = require("discord-player")
+const { SlashCommandBuilder } = require("discord.js");
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, StreamType } = require("@discordjs/voice");
+const playdl  = require("play-dl");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,31 +26,37 @@ module.exports = {
             return;
         }
 
-        try {
-            // connection for the bot to join
-            const connection = joinVoiceChannel({
-                channelId: member_voice_channel.id,
-                guildId: member_voice_channel.guild.id,
-                adapterCreator: member_voice_channel.guild.voiceAdapterCreator,
-                selfDeaf: true,
-            });
+        // connection for the bot to join
+        const connection = joinVoiceChannel({
+            channelId: member_voice_channel.id,
+            guildId: member_voice_channel.guild.id,
+            adapterCreator: member_voice_channel.guild.voiceAdapterCreator,
+            selfDeaf: true,
+        });
 
+        const subcommand = interaction.options.getSubcommand();
+
+        try {
             // if subcommand is song, otherwise it is playlist
-            if (interaction.options.getSubcommand() == "song") {
+            if (subcommand == "song") {
                 let url = interaction.options.getString("url");
+
+                const ytInfo = await playdl.stream(url); // for yt videos
                 
                 // audio player and play the resource
                 const player = createAudioPlayer();
-                const resource = createAudioResource(url, { inputType: StreamType.Arbitrary });
-                player.play(resource);
+                const resource = createAudioResource(ytInfo.stream, {
+                    inputType: StreamType.Arbitrary,
+                });
                 connection.subscribe(player);
+                player.play(resource);
+
+                await interaction.reply(`Now playing **${url}**`);
             }
 
         } catch (error) {
-            await interaction.reply(`An error occurred:\n ${error}`);
+            console.log(`An error occurred:\n ${error}`);
             return;
         }
-
-        
     }
 };

@@ -7,7 +7,7 @@ module.exports = {
     .setDescription("Will stop the music"),
 
     async execute(interaction) {
-        await interaction.reply("Placeholder for stopping music");
+        await interaction.reply("discbot-X left the voice channel");
 
         const connection = getVoiceConnection(interaction.guild.id);
 
